@@ -1,0 +1,3 @@
+include ':wifiLibrary'
+include ':app'
+rootProject.name = "CamPlus"
