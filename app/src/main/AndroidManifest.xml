@@ -37,6 +37,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.startlink.camplus.wifi.FilesActivity"/>
 
         <activity android:name=".wifi.LocalPictureActivity"/>
         <activity android:name=".wifi.LocalWifiPlayerActivity"
