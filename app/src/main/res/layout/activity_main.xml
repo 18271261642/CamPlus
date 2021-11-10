@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@mipmap/icon_app_icon_bg"/>
+        android:src="@drawable/icon_app_icon"/>
 
     <TextView
         app:layout_constraintLeft_toLeftOf="parent"

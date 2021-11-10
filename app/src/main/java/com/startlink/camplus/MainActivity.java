@@ -9,13 +9,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-public class
+public class MainActivity extends AppCompatActivity {
 
 
-MainActivity extends AppCompatActivity {
-
-
-    private final Handler handler = new Handler(Looper.getMainLooper()){
+    private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
@@ -31,7 +28,7 @@ MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        handler.sendEmptyMessageDelayed(0x00,3 * 1000);
+        handler.sendEmptyMessageDelayed(0x00, 3 * 1000);
 
     }
 }

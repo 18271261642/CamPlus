@@ -24,8 +24,12 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import androidx.appcompat.widget.AppCompatTextView;
+
 import com.startlink.camplus.R;
 import java.io.File;
 import java.io.FileInputStream;
@@ -113,6 +117,9 @@ public class FilesActivity extends Activity {
     private ProgressDialog m_Dialog = null;
     private int m_iDeleteSDposition = -1;
 
+    private ImageView backImg;
+    private AppCompatTextView titleTv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -133,6 +140,9 @@ public class FilesActivity extends Activity {
 
         setContentView(R.layout.activity_files);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+
+        initViews();
+
 
         m_Context = FilesActivity.this;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -1267,5 +1277,24 @@ public class FilesActivity extends Activity {
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFile(pathName, options);
+    }
+
+
+
+
+    private void initViews(){
+        backImg = findViewById(R.id.wifiTitleBackImg);
+        titleTv = findViewById(R.id.commTitleTv);
+
+        titleTv.setText("相机资源");
+
+        backImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
     }
 }

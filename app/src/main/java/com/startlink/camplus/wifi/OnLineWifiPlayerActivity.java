@@ -83,8 +83,8 @@ public class OnLineWifiPlayerActivity extends GSYBaseActivityDetail<StandardGSYV
     private void initViews() {
         videoPlayer = findViewById(R.id.onLineVideoPlayer);
         imgView = findViewById(R.id.imgView);
-       // itemTitleTv = findViewById(R.id.itemTitleTv);
-        //itemTitleTv.setText("视频播放");
+        itemTitleTv = findViewById(R.id.commTitleTv);
+        itemTitleTv.setText("视频播放");
 
         wifiTitleBackImg = findViewById(R.id.wifiTitleBackImg);
         wifiTitleBackImg.setOnClickListener(new View.OnClickListener() {

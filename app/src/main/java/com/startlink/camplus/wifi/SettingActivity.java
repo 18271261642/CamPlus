@@ -92,7 +92,6 @@ public class SettingActivity extends PreferenceActivity {
 
         super.onCreate(savedInstanceState);
 
-
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         m_GPXMLParse = new GPXMLParse();
@@ -127,12 +126,12 @@ public class SettingActivity extends PreferenceActivity {
             if (ParseXMLThread == null) {
                 if (m_Dialog == null) {
                     m_Dialog = new ProgressDialog(this);
-                    m_Dialog.setMessage(getResources().getString(R.string.Getting_menu));
-                    m_Dialog.setCanceledOnTouchOutside(false);
-                    m_Dialog.setCancelable(false);
+
                 }
                 m_Dialog.show();
-
+                m_Dialog.setMessage(getResources().getString(R.string.Getting_menu));
+                m_Dialog.setCanceledOnTouchOutside(false);
+                m_Dialog.setCancelable(false);
                 Log.e(TAG,"------dialog-------");
 
 

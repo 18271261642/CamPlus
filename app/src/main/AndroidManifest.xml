@@ -4,6 +4,8 @@
     package="com.startlink.camplus">
 
 
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
@@ -27,6 +29,9 @@
         android:theme="@style/AppTheme">
 
 
+        <meta-data android:name="ScopedStorage"
+            android:value="true" />
+
         <activity android:name=".MainActivity"
             android:theme="@style/LaunchActivityStyle"
             android:exported="true">
@@ -37,7 +42,12 @@
             </intent-filter>
         </activity>
 
+        <!--摄像头文件列表页面-->
         <activity android:name="com.startlink.camplus.wifi.FilesActivity"/>
+        <!--摄像头设置页面-->
+        <activity android:name="com.startlink.camplus.wifi.SettingActivity"/>
+        <!--demo中在线视频播放页面-->
+        <activity android:name="com.startlink.camplus.wifi.FileViewController"/>
 
         <activity android:name=".wifi.LocalPictureActivity"/>
         <activity android:name=".wifi.LocalWifiPlayerActivity"
@@ -51,6 +61,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name="com.startlink.camplus.wifi.MainActivity"
             android:theme="@style/AppTheme"/>
+
+        <!--固件升级页面-->
+        <activity android:name="com.startlink.camplus.wifi.FWUpgradeActivity"/>
 
 
     </application>

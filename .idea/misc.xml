@@ -8,6 +8,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_files.xml" value="0.17916666666666667" />
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_fwgrade.xml" value="0.17916666666666667" />
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_local_wifi_picture_layout.xml" value="0.17916666666666667" />
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_main_vlc_player.xml" value="0.17916666666666667" />
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/item_title_layout.xml" value="0.17916666666666667" />
         <entry key="..\:/WorkPlace/CamPlus/app/src/main/res/drawable/ic_comm_back_img.xml" value="0.234765625" />
         <entry key="..\:/WorkPlace/CamPlus/app/src/main/res/layout/activity_local_wifi_picture_layout.xml" value="0.25" />
         <entry key="..\:/WorkPlace/CamPlus/app/src/main/res/layout/activity_local_wifi_player_layout.xml" value="0.2182377049180328" />
