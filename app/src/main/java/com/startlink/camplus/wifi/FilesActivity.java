@@ -308,8 +308,8 @@ public class FilesActivity extends Activity {
                                             startActivity(intent);
                                             return;
                                         }
-//                                        Intent toVlcPlayer = new Intent(FilesActivity.this, FileViewController.class);
-                                        Intent toVlcPlayer = new Intent(FilesActivity.this, OnLineWifiPlayerActivity.class);
+                                        Intent toVlcPlayer = new Intent(FilesActivity.this, FileViewController.class);
+//                                        Intent toVlcPlayer = new Intent(FilesActivity.this, OnLineWifiPlayerActivity.class);
 
                                         Bundle b = new Bundle();
                                         b.putString(CamWrapper.GPFILECALLBACKTYPE_FILEURL, strStreamFilePath);
