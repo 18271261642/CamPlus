@@ -47,7 +47,8 @@ public class LocalPictureActivity extends AppCompatActivity {
         initViews();
 
         pictureUrl = getIntent().getStringExtra("local_picture");
-
+        if(pictureUrl == null)
+            return;
         Log.e(TAG,"---pictureUrl="+pictureUrl);
 
         if(ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){

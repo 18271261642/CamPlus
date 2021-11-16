@@ -185,7 +185,7 @@ public class MainViewController extends AppCompatActivity implements SurfaceHold
                 fIn.close();
                 os.close();
             } catch (IOException e) {
-
+                e.printStackTrace();
                 Log.e("tag", e.getMessage());
             }
         }

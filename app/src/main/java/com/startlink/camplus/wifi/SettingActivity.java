@@ -617,8 +617,16 @@ public class SettingActivity extends PreferenceActivity {
                 m_Dialog = null;
             }
         }
-        m_xmlGategory.clear();
-        m_xmlGategory = null;
+        if(m_xmlGategory != null){
+            m_xmlGategory.clear();
+            m_xmlGategory = null;
+        }
+
+        if(ParseXMLThread != null){
+            ParseXMLThread.interrupt();
+            ParseXMLThread = null;
+        }
+
         clearApplicationData();
         if (null != m_dismissHandler) {
             m_dismissHandler.removeCallbacksAndMessages(null);
@@ -777,6 +785,8 @@ public class SettingActivity extends PreferenceActivity {
             switch (i32ErrorCode) {
                 case CamWrapper.Error_ServerIsBusy:
                     Log.e(TAG, "Error_ServerIsBusy ... ");
+                    CamWrapper.getComWrapperInstance().SetViewHandler(m_FromWrapperHandler, CamWrapper.GPVIEW_MENU);
+                    m_bGoFWUpgrade = false;
                     break;
                 case CamWrapper.Error_InvalidCommand:
                     Log.e(TAG, "Error_InvalidCommand ... ");

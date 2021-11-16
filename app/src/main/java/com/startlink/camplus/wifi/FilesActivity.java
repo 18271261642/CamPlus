@@ -501,6 +501,46 @@ public class FilesActivity extends Activity {
 
     }
 
+
+
+    private void testTryAgain(){
+        if (!bSaveImageItem) {
+
+            if (listImageItem == null)
+                listImageItem = new ArrayList<HashMap<String, Object>>();
+            listImageItem.clear();
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            _bSetModeDone = false;
+            CamWrapper.getComWrapperInstance().GPCamSendSetMode(
+                    CamWrapper.GPDEVICEMODE_Playback);
+
+            CamWrapper.getComWrapperInstance().GPCamSendGetFullFileList();
+
+
+        } else {
+            _bSetModeDone = false;
+            CamWrapper.getComWrapperInstance().GPCamSendSetMode(
+                    CamWrapper.GPDEVICEMODE_Playback);
+
+            CamWrapper.getComWrapperInstance().GPCamSendGetFullFileList();
+
+            m_bRunCreateGridViewDone = false;
+            if (m_UpdateThumbnailThread == null) {
+                m_UpdateThumbnailThread = new Thread(
+                        new UpdateThumbnailRunnable());
+                m_UpdateThumbnailThread.start();
+            }
+        }
+    }
+
+
+
     static public FilesActivity getInstance() {
         return m_FilesActivityInstance;
     }
@@ -824,6 +864,7 @@ public class FilesActivity extends Activity {
         } catch (FileNotFoundException fnfe1) {
             Log.e(TAG, fnfe1.getMessage());
         } catch (Exception e) {
+            e.printStackTrace();
             Log.e(TAG, e.getMessage());
         }
     }
@@ -892,10 +933,10 @@ public class FilesActivity extends Activity {
         int i32CmdID = StatusBundle.getInt(CamWrapper.GPCALLBACKSTATUSTYPE_CMDID);
         int i32DataSize = StatusBundle.getInt(CamWrapper.GPCALLBACKSTATUSTYPE_DATASIZE);
         byte[] pbyData = StatusBundle.getByteArray(CamWrapper.GPCALLBACKSTATUSTYPE_DATA);
-        //Log.e(TAG, "i32CMDIndex = " + i32CmdIndex + ", i32Type = " + i32CmdType + ", i32Mode = " + i32Mode + ", i32CMDID = " + i32CmdID + ", i32DataSize = " + i32DataSize);
+        Log.e(TAG, "i32CMDIndex = " + i32CmdIndex + ", i32Type = " + i32CmdType + ", i32Mode = " + i32Mode + ", i32CMDID = " + i32CmdID + ", i32DataSize = " + i32DataSize+"bSaveImageItem="+bSaveImageItem+"\n"+ (listImageItem == null));
 
         Log.e(TAG,"------pbData="+ Arrays.toString(pbyData));
-
+        //=[16, 0, 7]
 
         if (i32CmdType == CamWrapper.GP_SOCK_TYPE_ACK) {
             switch (i32Mode) {
@@ -923,8 +964,11 @@ public class FilesActivity extends Activity {
                     Log.e(TAG, "GPSOCK_MODE_Playback ... ");
                     switch (i32CmdID) {
                         case CamWrapper.GPSOCK_Playback_CMD_GetFileCount: {
-                            if (bSaveImageItem)
-                                return;
+//                            if (bSaveImageItem){
+//                              //  testTryAgain();
+//                                return;
+//                            }
+
 
                             int i32FileCount = (pbyData[0] & 0xFF) | ((pbyData[1] & 0xFF) << 8);
                             if (i32FileCount <= 0)
