@@ -242,13 +242,17 @@ public class MainViewController extends AppCompatActivity implements SurfaceHold
         m_Context = MainViewController.this;
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        Bundle b = getIntent().getExtras();
-//        urlToStream = b.getString("url", null);
 
-        int iSetTime = b.getInt("SetTime", 0);
-        if (1 == iSetTime) {
-            setVendorTime();
+        Bundle b = getIntent().getExtras();
+        if(b != null){
+            //        urlToStream = b.getString("url", null);
+
+            int iSetTime = b.getInt("SetTime", 0);
+            if (1 == iSetTime) {
+                setVendorTime();
+            }
         }
+
 //		setVendorID();
         CamWrapper.getComWrapperInstance().SetViewHandler(m_FromWrapperHandler, CamWrapper.GPVIEW_STREAMING);
         CamWrapper.getComWrapperInstance().GPCamSendGetStatus();

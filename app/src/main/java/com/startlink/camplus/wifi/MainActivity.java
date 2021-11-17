@@ -257,26 +257,34 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults) {
-        if (null == grantResults) {
-            return;
-        }
+        try {
+            if (null == grantResults) {
+                return;
+            }
 
-        switch (permsRequestCode) {
+            if( permissions.length == 0)
+                return;
 
-            case 200:
+            switch (permsRequestCode) {
 
-                boolean writeAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                if (!writeAccepted) {
-                    if (shouldAskPermission()) {
-                        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                case 200:
 
-                        ActivityCompat.requestPermissions(this, perms, permsRequestCode);
+                    boolean writeAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    if (!writeAccepted) {
+                        if (shouldAskPermission()) {
+                            String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+                            ActivityCompat.requestPermissions(this, perms, permsRequestCode);
+                        }
+                    } else {
+                        crateDirectory();
                     }
-                } else {
-                    crateDirectory();
-                }
-                break;
+                    break;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
     private boolean shouldAskPermission() {

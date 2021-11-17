@@ -19,6 +19,8 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import com.generalplus.ffmpegLib.ffmpegWrapper;
 import com.startlink.camplus.R;
 
@@ -275,6 +277,10 @@ public class FileViewController extends Activity implements SurfaceHolder.Callba
 
 
         Bundle b = getIntent().getExtras();
+        if(b == null){
+            Toast.makeText(FileViewController.this,"没有播放地址!",Toast.LENGTH_SHORT).show();
+            return;
+        }
         _urlToStream = b.getString(CamWrapper.GPFILECALLBACKTYPE_FILEURL, null);
         _FileFlag = b.getInt(CamWrapper.GPFILECALLBACKTYPE_FILEFLAG, 0);
         _FileIndex = b.getInt(CamWrapper.GPFILECALLBACKTYPE_FILEINDEX, 0);

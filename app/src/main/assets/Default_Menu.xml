@@ -10,26 +10,26 @@
 					<Type>0x00</Type>
 					<Default>0x01</Default>
 					<Values>
-<!--						<Value>-->
-<!--							<Name>1080FHD 1920x1080 30fps</Name>-->
-<!--							<ID>0x00</ID>-->
-<!--						</Value>-->
-<!--						<Value>-->
-<!--							<Name>1080P 1440x1080 30fps</Name>-->
-<!--							<ID>0x01</ID>-->
-<!--						</Value>-->
+						<Value>
+							<Name>1080FHD 1920x1080 30fps</Name>
+							<ID>0x00</ID>
+						</Value>
+						<Value>
+							<Name>1080P 1440x1080 30fps</Name>
+							<ID>0x01</ID>
+						</Value>
 						<Value>
 							<Name>720P 1280x720 30fps</Name>
 							<ID>0x02</ID>
 						</Value>
-<!--						<Value>-->
-<!--							<Name>WVGA 848x480 30fps</Name>-->
-<!--							<ID>0x03</ID>-->
-<!--						</Value>-->
-<!--						<Value>-->
-<!--							<Name>VGA 640x480 30fps</Name>-->
-<!--							<ID>0x04</ID>-->
-<!--						</Value>-->
+						<Value>
+							<Name>WVGA 848x480 30fps</Name>
+							<ID>0x03</ID>
+						</Value>
+						<Value>
+							<Name>VGA 640x480 30fps</Name>
+							<ID>0x04</ID>
+						</Value>
 					</Values>
 				</Setting>
 				<Setting>

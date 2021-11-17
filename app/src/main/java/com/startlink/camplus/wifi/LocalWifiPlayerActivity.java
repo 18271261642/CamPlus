@@ -77,6 +77,9 @@ public class LocalWifiPlayerActivity extends GSYBaseActivityDetail<StandardGSYVi
         GSYVideoManager.instance().setNeedMute(false);
         PlayerFactory.setPlayManager(IjkPlayerManager.class);
 
+        //隐藏返回按钮
+        videoPlayer.getBackButton().setVisibility(View.GONE);
+
         itemTitleTv.setText("视频播放");
         wifiTitleBackImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +97,7 @@ public class LocalWifiPlayerActivity extends GSYBaseActivityDetail<StandardGSYVi
         super.onResume();
         if(videoPlayer != null)
             videoPlayer.onVideoResume();
+
     }
 
 
@@ -121,6 +125,7 @@ public class LocalWifiPlayerActivity extends GSYBaseActivityDetail<StandardGSYVi
         return new GSYVideoOptionBuilder()
                 .setUrl(videoUrl)
                 .setCacheWithPlay(true)
+                .setStartAfterPrepared(true)
                 .setVideoTitle("")
                 .setIsTouchWiget(true)
                 //.setAutoFullWithSize(true)
