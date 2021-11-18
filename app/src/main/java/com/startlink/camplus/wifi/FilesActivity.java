@@ -26,8 +26,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.startlink.camplus.R;
@@ -119,6 +121,28 @@ public class FilesActivity extends Activity {
 
     private ImageView backImg;
     private AppCompatTextView titleTv;
+
+    private TextView refreshTv;
+
+
+    private final Handler handler = new Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            handler.removeMessages(0x00);
+            String pathStr = (String) msg.obj;
+            if(pathStr == null)
+                return;
+            Intent intent = new Intent(FilesActivity.this,LocalWifiPlayerActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("local_video",pathStr);
+            intent.putExtras(bundle);
+            startActivity(intent);
+
+        }
+    };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1134,8 +1158,15 @@ public class FilesActivity extends Activity {
                                                     }
                                                     m_i32DownlaodStatus = DownloadFlag_Completed;
                                                     m_bPendingGetThumbnail = false;
+
+                                                    Message message = handler.obtainMessage();
+                                                    message.what = 0x00;
+                                                    message.obj = strDevicePICLocation + strName;
+                                                    handler.handleMessage(message);
+                                                    Log.e(TAG,"----------下载完成="+strDevicePICLocation + strName);
                                                 }
                                             });
+
                                         }
                                     }).start();
                                 }
@@ -1330,7 +1361,10 @@ public class FilesActivity extends Activity {
         backImg = findViewById(R.id.wifiTitleBackImg);
         titleTv = findViewById(R.id.commTitleTv);
 
+        refreshTv = findViewById(R.id.commRefreshTv);
+
         titleTv.setText("相机资源");
+        refreshTv.setText("刷新");
 
         backImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1340,5 +1374,32 @@ public class FilesActivity extends Activity {
         });
 
 
+        refreshTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showProgress();
+                testTryAgain();
+            }
+        });
+
+
+    }
+
+
+    private ProgressDialog progressDialog;
+
+    private void showProgress(){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(this);
+        }
+        progressDialog.show();
+        progressDialog.setMessage("Loading...");
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        }, 1500);
     }
 }

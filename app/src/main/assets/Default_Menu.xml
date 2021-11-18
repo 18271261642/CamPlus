@@ -36,7 +36,7 @@
 					<Name>曝光度</Name>
 					<ID>0x0000001</ID>
 					<Type>0x00</Type>
-					<Default>0x03</Default>					
+					<Default>0x03</Default>
 					<Values>
 						<Value>
 							<Name>+2.0</Name>
@@ -96,7 +96,7 @@
 					<Name>移动侦测</Name>
 					<ID>0x0000002</ID>
 					<Type>0x00</Type>
-					<Default>0x00</Default>					
+					<Default>0x00</Default>
 					<Values>
 						<Value>
 							<Name>关闭</Name>
@@ -112,7 +112,7 @@
 					<Name>循环录制</Name>
 					<ID>0x0000003</ID>
 					<Type>0x00</Type>
-					<Default>0x02</Default>					
+					<Default>0x02</Default>
 					<Values>
 						<Value>
 							<Name>关闭</Name>
@@ -144,7 +144,7 @@
 					<Name>WDR</Name>
 					<ID>0x0000004</ID>
 					<Type>0x00</Type>
-					<Default>0x00</Default>					
+					<Default>0x00</Default>
 					<Values>
 						<Value>
 							<Name>关闭</Name>
@@ -160,7 +160,7 @@
 					<Name>录音</Name>
 					<ID>0x0000005</ID>
 					<Type>0x00</Type>
-					<Default>0x00</Default>					
+					<Default>0x00</Default>
 					<Values>
 						<Value>
 							<Name>关闭</Name>
@@ -176,7 +176,7 @@
 					<Name>时间戳</Name>
 					<ID>0x0000006</ID>
 					<Type>0x00</Type>
-					<Default>0x00</Default>					
+					<Default>0x00</Default>
 					<Values>
 						<Value>
 							<Name>关闭</Name>
@@ -505,7 +505,7 @@
 					<Default>0x01</Default>
 					<Values>
 						<Value>
-							<Name>英语</Name>
+							<Name>中文</Name>
 							<ID>0x00</ID>
 						</Value>
 					</Values>				

@@ -116,6 +116,10 @@ public class MainViewController extends AppCompatActivity implements SurfaceHold
     private static ArrayList<BatteryRes> m_BatteryList;
     private boolean m_bVendorID = true;
 
+
+
+
+
     static private class BatteryRes {
         int BatteryIndex;
         int BatterResIndex;
@@ -243,6 +247,9 @@ public class MainViewController extends AppCompatActivity implements SurfaceHold
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+
+        initViews();
+
         Bundle b = getIntent().getExtras();
         if(b != null){
             //        urlToStream = b.getString("url", null);
@@ -258,6 +265,18 @@ public class MainViewController extends AppCompatActivity implements SurfaceHold
         CamWrapper.getComWrapperInstance().GPCamSendGetStatus();
         CamWrapper.getComWrapperInstance().SetGPCamSendGetParameterFile(CamWrapper.ParameterFileName);
 
+
+        CamWrapper.getComWrapperInstance().GPCamSendSetParameter(0, 1, new byte[]{0x02});
+
+
+
+        mSurfaceView.setEGLContextClientVersion(2);
+        mSurfaceView.setRenderer(ffmpegWrapper.getInstance());
+        mSurfaceView.setKeepScreenOn(true);
+    }
+
+
+    private void initViews(){
         vlcContainer = (LinearLayout) findViewById(R.id.vlc_container);
         mSurfaceView = (GLSurfaceView) findViewById(R.id.vlc_surface);
 
@@ -273,15 +292,17 @@ public class MainViewController extends AppCompatActivity implements SurfaceHold
         imgbtn_recordorcapture = (ImageButton) findViewById(R.id.imgbtn_recordorcapture);
         imgbtn_mode = (ImageButton) findViewById(R.id.imgbtn_mode);
 
+
+
         imgview_battery_status = (ImageView) findViewById(R.id.imgview_battery_status);
         imgview_multi_shot_status = (ImageView) findViewById(R.id.imgview_multi_shot_status);
         imgview_record_status = (ImageView) findViewById(R.id.imgview_record_status);
         imgview_audio_status = (ImageView) findViewById(R.id.imgview_audio_status);
 
-        mSurfaceView.setEGLContextClientVersion(2);
-        mSurfaceView.setRenderer(ffmpegWrapper.getInstance());
-        mSurfaceView.setKeepScreenOn(true);
+
+
     }
+
 
     private void setVendorID() {
         byte[] byStringData = new byte[8];

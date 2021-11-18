@@ -43,23 +43,28 @@
         </activity>
 
         <!--摄像头文件列表页面-->
-        <activity android:name="com.startlink.camplus.wifi.FilesActivity"/>
+        <activity android:name="com.startlink.camplus.wifi.FilesActivity"
+            android:screenOrientation="portrait"/>
         <!--摄像头设置页面-->
-        <activity android:name="com.startlink.camplus.wifi.SettingActivity"/>
+        <activity android:name="com.startlink.camplus.wifi.SettingActivity"
+            android:screenOrientation="portrait"/>
         <!--demo中在线视频播放页面-->
-        <activity android:name="com.startlink.camplus.wifi.FileViewController"/>
+        <activity android:name="com.startlink.camplus.wifi.FileViewController"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".wifi.LocalPictureActivity"/>
         <activity android:name=".wifi.LocalWifiPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait"/>
-        <activity android:name=".wifi.MainViewController"/>
+        <activity android:name=".wifi.MainViewController"
+            android:screenOrientation="portrait"/>
 
 
         <activity android:name=".wifi.OnLineWifiPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait"/>
         <activity android:name="com.startlink.camplus.wifi.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
 
         <!--固件升级页面-->

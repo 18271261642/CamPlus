@@ -30,6 +30,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
@@ -37,6 +38,7 @@ import com.startlink.camplus.R;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import generalplus.com.GPCamLib.CamWrapper;
 import generalplus.com.GPCamLib.GPXMLParse;
@@ -67,17 +69,17 @@ public class SettingActivity extends PreferenceActivity {
     private String m_strFilePath = "";
 
 
-    private final Handler handler = new Handler(Looper.getMainLooper()){
+    private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
-            Log.e(TAG,"-msgWhat="+msg.what);
-            if(msg.what == 0x00){
-                if(m_Dialog != null)
+            Log.e(TAG, "-msgWhat=" + msg.what);
+            if (msg.what == 0x00) {
+                if (m_Dialog != null)
                     m_Dialog.dismiss();
             }
 
-            if(msg.what == 0x01){
+            if (msg.what == 0x01) {
                 clearApplicationData();
                 if (m_xmlGategory != null && m_xmlGategory.size() > 0)
                     UpdateSettingListView();
@@ -98,7 +100,7 @@ public class SettingActivity extends PreferenceActivity {
         m_handler = new Handler();
 
 
-      //  ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0x00);
+        //  ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0x00);
 
 
         CamWrapper.getComWrapperInstance().GPCamSendSetMode(CamWrapper.GPDEVICEMODE_Menu);
@@ -123,47 +125,45 @@ public class SettingActivity extends PreferenceActivity {
 
             Log.e(TAG, "--22--m_strFilePath=" + m_strFilePath);
         }
-            if (ParseXMLThread == null) {
-                if (m_Dialog == null) {
-                    m_Dialog = new ProgressDialog(this);
-
-                }
-                m_Dialog.show();
-                m_Dialog.setMessage(getResources().getString(R.string.Getting_menu));
-                m_Dialog.setCanceledOnTouchOutside(false);
-                m_Dialog.setCancelable(false);
-                Log.e(TAG,"------dialog-------");
-
-
-                m_dismissHandler = new Handler();
-                handler.sendEmptyMessageDelayed(0x00,10 * 1000);
-    //            m_dismissHandler.postDelayed(new Runnable() {
-    //
-    //                @Override
-    //                public void run() {
-    //                    if (m_bDismiss) {
-    //                        return;
-    //                    }
-    //                    runOnUiThread(new Runnable() {
-    //                        public void run() {
-    //                            if (m_Dialog != null) {
-    //                                if (m_Dialog.isShowing()) {
-    //                                    m_Dialog.setCancelable(true);
-    //                                }
-    //                            }
-    //                        }
-    //                    });
-    //                }
-    //            }, 10000);
-
-                ParseXMLThread = new Thread(new ParseXMLRunnable(m_strFilePath));
-                ParseXMLThread.start();
-
+        if (ParseXMLThread == null) {
+            if (m_Dialog == null) {
+                m_Dialog = new ProgressDialog(this);
 
             }
+            m_Dialog.show();
+            m_Dialog.setMessage(getResources().getString(R.string.Getting_menu));
+            m_Dialog.setCanceledOnTouchOutside(false);
+            m_Dialog.setCancelable(false);
+            Log.e(TAG, "------dialog-------");
+
+
+            m_dismissHandler = new Handler();
+            handler.sendEmptyMessageDelayed(0x00, 10 * 1000);
+            //            m_dismissHandler.postDelayed(new Runnable() {
+            //
+            //                @Override
+            //                public void run() {
+            //                    if (m_bDismiss) {
+            //                        return;
+            //                    }
+            //                    runOnUiThread(new Runnable() {
+            //                        public void run() {
+            //                            if (m_Dialog != null) {
+            //                                if (m_Dialog.isShowing()) {
+            //                                    m_Dialog.setCancelable(true);
+            //                                }
+            //                            }
+            //                        }
+            //                    });
+            //                }
+            //            }, 10000);
+
+            ParseXMLThread = new Thread(new ParseXMLRunnable(m_strFilePath));
+            ParseXMLThread.start();
+
+
+        }
     }
-
-
 
 
     public static ArrayList<GPXMLParse.GPXMLCategory> getXMLCategory() {
@@ -176,56 +176,67 @@ public class SettingActivity extends PreferenceActivity {
     }
 
     public void UpdateSettingListView() {
-        Log.e(TAG,"------2222--------1111----");
+        Log.e(TAG, "------2222--------1111----");
         PreferenceScreen screen = getPreferenceManager()
                 .createPreferenceScreen(this);
-        Log.e(TAG,"------screen="+(screen == null));
+        Log.e(TAG, "------screen=" + (screen == null));
         for (int i32CategoryIndex = 0; i32CategoryIndex < m_xmlGategory.size(); i32CategoryIndex++) {
             PreferenceCategory category = new PreferenceCategory(this);
-            category.setTitle(m_xmlGategory.get(i32CategoryIndex).strXMLCategoryName);
+            String catetoryName = m_xmlGategory.get(i32CategoryIndex).strXMLCategoryName;
+
+            category.setTitle(catetoryName);
             screen.addPreference(category);
 
             for (int i32SettingIndex = 0; i32SettingIndex < m_xmlGategory
                     .get(i32CategoryIndex).aryListGPXMLSettings.size(); i32SettingIndex++) {
 
-                long tmpLong = Long.parseLong(  m_xmlGategory.get(i32CategoryIndex).aryListGPXMLSettings
-                        .get(i32SettingIndex).strXMLSettingType
-                        .substring(2).toString(), 16);
+                String IDStr = m_xmlGategory.get(i32CategoryIndex).aryListGPXMLSettings.get(i32SettingIndex).strXMLSettingID;
+                //Log.e(TAG, "-------name=" + catetoryName + " ID=" + IDStr);
+                if(IDStr.equals("0x0000000")){
 
-                Log.e(TAG,"-----tmpLong="+tmpLong+" "+((int)tmpLong));
+                }else{
+                    long tmpLong = Long.parseLong(m_xmlGategory.get(i32CategoryIndex).aryListGPXMLSettings
+                            .get(i32SettingIndex).strXMLSettingType
+                            .substring(2).toString(), 16);
 
-                switch ((int) Long
-                        .parseLong(
-                                m_xmlGategory.get(i32CategoryIndex).aryListGPXMLSettings
-                                        .get(i32SettingIndex).strXMLSettingType
-                                        .substring(2).toString(), 16)) {
-                    case SettingType_RadioButton:  //0x00
-                        category.addPreference(getListPreference(i32CategoryIndex,
-                                i32SettingIndex));
-                        break;
-                    case SettingType_ConfirmAction:  //0x01
-                        category.addPreference(getPreference(i32CategoryIndex,
-                                i32SettingIndex, true));
-                        break;
-                    case SettingType_EditText:  //0x02
-                        category.addPreference(getEditTextPreference(
-                                i32CategoryIndex, i32SettingIndex));
-                        break;
-                    case SettingType_DisplayOnly:  //0x03
-                        category.addPreference(getPreference(i32CategoryIndex,
-                                i32SettingIndex, false));
-                        break;
-                    case SettingType_ConfirmActionForDevice:  //0x04
-                        category.addPreference(getPreference(i32CategoryIndex,
-                                i32SettingIndex, true));
-                        break;
-                    default:
-                        category.addPreference(getPreference(i32CategoryIndex,
-                                i32SettingIndex, false));
-                        break;
+                   // Log.e(TAG, "-----tmpLong=" + tmpLong + " " + ((int) tmpLong));
+
+                    switch ((int) Long
+                            .parseLong(
+                                    m_xmlGategory.get(i32CategoryIndex).aryListGPXMLSettings
+                                            .get(i32SettingIndex).strXMLSettingType
+                                            .substring(2).toString(), 16)) {
+                        case SettingType_RadioButton:  //0x00
+                            category.addPreference(getListPreference(i32CategoryIndex,
+                                    i32SettingIndex));
+                            break;
+                        case SettingType_ConfirmAction:  //0x01
+                            category.addPreference(getPreference(i32CategoryIndex,
+                                    i32SettingIndex, true));
+                            break;
+                        case SettingType_EditText:  //0x02
+                            category.addPreference(getEditTextPreference(
+                                    i32CategoryIndex, i32SettingIndex));
+                            break;
+                        case SettingType_DisplayOnly:  //0x03
+                            category.addPreference(getPreference(i32CategoryIndex,
+                                    i32SettingIndex, false));
+                            break;
+                        case SettingType_ConfirmActionForDevice:  //0x04
+                            category.addPreference(getPreference(i32CategoryIndex,
+                                    i32SettingIndex, true));
+                            break;
+                        default:
+                            category.addPreference(getPreference(i32CategoryIndex,
+                                    i32SettingIndex, false));
+                            break;
+                    }
+
+
                 }
 
             }
+
         }
 
         super.setPreferenceScreen(screen);
@@ -234,7 +245,7 @@ public class SettingActivity extends PreferenceActivity {
     private EditTextPreference getEditTextPreference(int CategoryIndex,
                                                      int SettingIndex) {
 
-        Log.e(TAG,"---getEditTextPreference="+CategoryIndex+" "+SettingIndex);
+        Log.e(TAG, "---getEditTextPreference=" + CategoryIndex + " " + SettingIndex);
 
         EditTextPreference editTextPreference = new EditTextPreference(this);
         editTextPreference.getEditText().setKeyListener(new DigitsKeyListener() {
@@ -253,31 +264,31 @@ public class SettingActivity extends PreferenceActivity {
 
         String titStr = m_xmlGategory.get(CategoryIndex).aryListGPXMLSettings
                 .get(SettingIndex).strXMLSettingName.toString();
-        Log.e(TAG,"------titStr="+titStr);
+        Log.e(TAG, "------titStr=" + titStr);
         editTextPreference
                 .setTitle(titStr);
 
         CharSequence summAry = (m_xmlGategory.get(CategoryIndex).aryListGPXMLSettings
                 .get(SettingIndex).strXMLSettingDefaultValue.toString());
 
-        Log.e(TAG,"-----summAry="+summAry);
+        Log.e(TAG, "-----summAry=" + summAry);
 
         editTextPreference
                 .setSummary(summAry);
         String txt = m_xmlGategory.get(CategoryIndex).aryListGPXMLSettings
                 .get(SettingIndex).strXMLSettingDefaultValue.toString();
-        Log.e(TAG,"-----txt="+txt);
+        Log.e(TAG, "-----txt=" + txt);
         editTextPreference
                 .setText(txt);
         String setKey = String.valueOf(m_xmlGategory.get(CategoryIndex).aryListGPXMLSettings
                 .get(SettingIndex).i32TreeLevel);
-        Log.e(TAG,"-----setKey="+setKey);
+        Log.e(TAG, "-----setKey=" + setKey);
         editTextPreference
                 .setKey(setKey);
 
         Object deftValue = m_xmlGategory.get(CategoryIndex).aryListGPXMLSettings
                 .get(SettingIndex).strXMLSettingDefaultValue.toString();
-      Log.e(TAG,"-----deftValue="+deftValue);
+        Log.e(TAG, "-----deftValue=" + deftValue);
         editTextPreference
                 .setDefaultValue(deftValue);
 
@@ -312,13 +323,14 @@ public class SettingActivity extends PreferenceActivity {
 
     private Preference getPreference(int CategoryIndex, int SettingIndex,
                                      boolean bHasClickEvent) {
-        Log.e(TAG,"------getPreference="+CategoryIndex+" "+SettingIndex);
-
+        Log.e(TAG, "------getPreference=" + CategoryIndex + " " + SettingIndex);
         Preference preference = new Preference(this);
+
+
         String titleStr = m_xmlGategory.get(CategoryIndex).aryListGPXMLSettings
                 .get(SettingIndex).strXMLSettingName.toString();
 
-        Log.e(TAG,"-----titleStr="+titleStr);
+        Log.e(TAG, "-----titleStr=" + titleStr);
 
         preference.setTitle(titleStr);
 
@@ -349,6 +361,7 @@ public class SettingActivity extends PreferenceActivity {
 
                     });
         }
+
 
         return preference;
     }
@@ -415,7 +428,7 @@ public class SettingActivity extends PreferenceActivity {
                             int i32SettingIndex = (i32KeyValue - (i32CategoryIndex * (0x01 << m_GPXMLParse.CategoryLevel)))
                                     / (0x01 << m_GPXMLParse.SettingLevel);
 
-                            int i32Value = 0x00;
+                            int i32Value = 0x02;
                             if (m_xmlGategory.get(i32CategoryIndex).aryListGPXMLSettings
                                     .get(i32SettingIndex).aryListGPXMLValues
                                     .size() > 0) {
@@ -529,7 +542,7 @@ public class SettingActivity extends PreferenceActivity {
 
         @Override
         public void run() {
-            if (m_xmlGategory == null || m_xmlGategory.size() == 0){
+            if (m_xmlGategory == null || m_xmlGategory.size() == 0) {
                 m_xmlGategory = m_GPXMLParse.GetGPXMLInfo(m_strXMLFilePath);
 //                m_xmlGategory.clear();
 //                ArrayList<GPXMLParse.GPXMLCategory> tmplist = m_GPXMLParse.GetGPXMLInfo(m_strXMLFilePath);
@@ -537,11 +550,17 @@ public class SettingActivity extends PreferenceActivity {
             }
 
 
-            Log.e(TAG,"-----m_xmlGategory.size="+m_xmlGategory.size() +" "+new Gson().toJson(m_xmlGategory));
+            Log.e(TAG, "-----m_xmlGategory.size=" + m_xmlGategory.size() + " " + new Gson().toJson(m_xmlGategory));
 
             for (int i32CategoryIndex = 0; i32CategoryIndex < m_xmlGategory
                     .size(); i32CategoryIndex++) {
+
+                GPXMLParse.GPXMLCategory category = m_xmlGategory.get(i32CategoryIndex);
+
+                // Log.e(TAG,"-------cccccc="+new Gson().toJson(category));
+
                 for (int i32SettingIndex = 0; i32SettingIndex < m_xmlGategory.get(i32CategoryIndex).aryListGPXMLSettings.size(); i32SettingIndex++) {
+
                     CamWrapper.getComWrapperInstance().GPCamSendGetParameter(
                             (int) Long.parseLong(m_xmlGategory.get(i32CategoryIndex).aryListGPXMLSettings.get(i32SettingIndex).strXMLSettingID.substring(2).toString(), 16));
                 }
@@ -564,7 +583,7 @@ public class SettingActivity extends PreferenceActivity {
 //            });
 
 
-            handler.sendEmptyMessageDelayed(0x01,1000);
+            handler.sendEmptyMessageDelayed(0x01, 1000);
 
 
 //            ParseXMLThread.interrupt();
@@ -582,7 +601,7 @@ public class SettingActivity extends PreferenceActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e(TAG,"----onResume----");
+        Log.e(TAG, "----onResume----");
         CamWrapper.getComWrapperInstance().SetViewHandler(m_FromWrapperHandler, CamWrapper.GPVIEW_MENU);
         m_bGoFWUpgrade = false;
     }
@@ -591,13 +610,13 @@ public class SettingActivity extends PreferenceActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.e(TAG,"---onPause----");
+        Log.e(TAG, "---onPause----");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e(TAG,"---onStop----");
+        Log.e(TAG, "---onStop----");
     }
 
     @Override
@@ -610,19 +629,19 @@ public class SettingActivity extends PreferenceActivity {
     @Override
     protected void onDestroy() {
 
-        Log.e(TAG,"----onDestroy----");
+        Log.e(TAG, "----onDestroy----");
         if (m_Dialog != null) {
             if (m_Dialog.isShowing()) {
                 m_Dialog.dismiss();
                 m_Dialog = null;
             }
         }
-        if(m_xmlGategory != null){
+        if (m_xmlGategory != null) {
             m_xmlGategory.clear();
             m_xmlGategory = null;
         }
 
-        if(ParseXMLThread != null){
+        if (ParseXMLThread != null) {
             ParseXMLThread.interrupt();
             ParseXMLThread = null;
         }
@@ -869,7 +888,7 @@ public class SettingActivity extends PreferenceActivity {
     }
 
     private int SendSetParameter(int ID, int Size, byte[] Data) {
-        Log.e(TAG, "GPCamSendSetParameter ... ");
+        Log.e(TAG, "-------GPCamSendSetParameter ... =" + ID + " size=" + Size + " Data=" + Arrays.toString(Data));
         if (m_Dialog == null) {
             m_Dialog = new ProgressDialog(this);
             m_Dialog.setMessage(getResources().getString(R.string.Setting));

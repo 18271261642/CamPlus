@@ -67,6 +67,8 @@ public class LocalWifiPlayerActivity extends GSYBaseActivityDetail<StandardGSYVi
        // videoPlayer.setUp(videoUrl,true,"title");
 
         initVideoBuilderMode();
+
+        videoPlayer.startPlayLogic();
     }
 
     private void initViews() {
@@ -79,6 +81,7 @@ public class LocalWifiPlayerActivity extends GSYBaseActivityDetail<StandardGSYVi
 
         //隐藏返回按钮
         videoPlayer.getBackButton().setVisibility(View.GONE);
+        videoPlayer.setStartAfterPrepared(true);
 
         itemTitleTv.setText("视频播放");
         wifiTitleBackImg.setOnClickListener(new View.OnClickListener() {
