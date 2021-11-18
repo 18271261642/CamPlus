@@ -2,13 +2,13 @@
 <Menu version="1.0">
 	<Categories>
 		<Category>
-			<Name>Record</Name>
+			<Name>记录</Name>
 			<Settings>
 				<Setting>
-					<Name>Resolution</Name>
+					<Name>分辨率</Name>
 					<ID>0x0000000</ID>
 					<Type>0x00</Type>
-					<Default>0x01</Default>
+					<Default>0x02</Default>
 					<Values>
 						<Value>
 							<Name>1080FHD 1920x1080 30fps</Name>
@@ -33,7 +33,7 @@
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Exposure</Name>
+					<Name>曝光度</Name>
 					<ID>0x0000001</ID>
 					<Type>0x00</Type>
 					<Default>0x03</Default>					
@@ -93,49 +93,49 @@
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Motion Detection</Name>
+					<Name>移动侦测</Name>
 					<ID>0x0000002</ID>
 					<Type>0x00</Type>
 					<Default>0x00</Default>					
 					<Values>
 						<Value>
-							<Name>Off</Name>
+							<Name>关闭</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>On</Name>
+							<Name>开启</Name>
 							<ID>0x01</ID>
 						</Value>
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Loop Recording</Name>
+					<Name>循环录制</Name>
 					<ID>0x0000003</ID>
 					<Type>0x00</Type>
 					<Default>0x02</Default>					
 					<Values>
 						<Value>
-							<Name>Off</Name>
+							<Name>关闭</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>1 Minute</Name>
+							<Name>1 分钟</Name>
 							<ID>0x01</ID>
 						</Value>
 						<Value>
-							<Name>2 Minutes</Name>
+							<Name>2 分钟</Name>
 							<ID>0x02</ID>
 						</Value>
 						<Value>
-							<Name>3 Minutes</Name>
+							<Name>3 分钟</Name>
 							<ID>0x03</ID>
 						</Value>
 						<Value>
-							<Name>5 Minutes</Name>
+							<Name>5 分钟</Name>
 							<ID>0x04</ID>
 						</Value>
 						<Value>
-							<Name>10 Minutes</Name>
+							<Name>10 分钟</Name>
 							<ID>0x05</ID>
 						</Value>
 					</Values>
@@ -147,43 +147,43 @@
 					<Default>0x00</Default>					
 					<Values>
 						<Value>
-							<Name>Off</Name>
+							<Name>关闭</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>On</Name>
+							<Name>开启</Name>
 							<ID>0x01</ID>
 						</Value>
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Record Audio</Name>
+					<Name>录音</Name>
 					<ID>0x0000005</ID>
 					<Type>0x00</Type>
 					<Default>0x00</Default>					
 					<Values>
 						<Value>
-							<Name>Off</Name>
+							<Name>关闭</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>On</Name>
+							<Name>开启</Name>
 							<ID>0x01</ID>
 						</Value>
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Date Stamp</Name>
+					<Name>时间戳</Name>
 					<ID>0x0000006</ID>
 					<Type>0x00</Type>
 					<Default>0x00</Default>					
 					<Values>
 						<Value>
-							<Name>Off</Name>
+							<Name>关闭</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>On</Name>
+							<Name>开启</Name>
 							<ID>0x01</ID>
 						</Value>
 					</Values>
@@ -191,10 +191,10 @@
 			</Settings>
 		</Category>
 		<Category>
-			<Name>Capture</Name>
+			<Name>捕获</Name>
 			<Settings>
 				<Setting>
-					<Name>Resolution</Name>
+					<Name>分辨率</Name>
 					<ID>0x00000100</ID>
 					<Type>0x00</Type>
 					<Default>0x01</Default>					
@@ -234,7 +234,7 @@
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Exposure</Name>
+					<Name>曝光值</Name>
 					<ID>0x0000101</ID>
 					<Type>0x00</Type>
 					<Default>0x03</Default>					
@@ -294,69 +294,69 @@
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Quality</Name>
+					<Name>画质</Name>
 					<ID>0x00000102</ID>
 					<Type>0x00</Type>
 					<Default>0x01</Default>					
 					<Values>
 						<Value>
-							<Name>Fine</Name>
+							<Name>高</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>Normal</Name>
+							<Name>中</Name>
 							<ID>0x01</ID>
 						</Value>
 						<Value>
-							<Name>Economical</Name>
+							<Name>低</Name>
 							<ID>0x02</ID>
 						</Value>
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Sequence</Name>
+					<Name>排序</Name>
 					<ID>0x00000103</ID>
 					<Type>0x00</Type>
 					<Default>0x00</Default>					
 					<Values>
 						<Value>
-							<Name>Off</Name>
+							<Name>关闭</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>On</Name>
+							<Name>开启</Name>
 							<ID>0x01</ID>
 						</Value>
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Sharpness</Name>
+					<Name>清晰度</Name>
 					<ID>0x00000104</ID>
 					<Type>0x00</Type>
 					<Default>0x01</Default>					
 					<Values>
 						<Value>
-							<Name>Strong</Name>
+							<Name>高</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>Normal</Name>
+							<Name>中</Name>
 							<ID>0x01</ID>
 						</Value>
 						<Value>
-							<Name>Soft</Name>
+							<Name>低</Name>
 							<ID>0x02</ID>
 						</Value>
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>ISO</Name>
+					<Name>感光度</Name>
 					<ID>0x00000105</ID>
 					<Type>0x00</Type>
 					<Default>0x00</Default>					
 					<Values>
 						<Value>
-							<Name>Auto</Name>
+							<Name>自动</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
@@ -370,65 +370,65 @@
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Anti-Shaking</Name>
+					<Name>防抖</Name>
 					<ID>0x00000106</ID>
 					<Type>0x00</Type>
 					<Default>0x00</Default>					
 					<Values>
 						<Value>
-							<Name>Off</Name>
+							<Name>关闭</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>On</Name>
+							<Name>开启</Name>
 							<ID>0x01</ID>
 						</Value>
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Date/Time</Name>
+					<Name>时间和日期</Name>
 					<ID>0x00000107</ID>
 					<Type>0x00</Type>
 					<Default>0x02</Default>					
 					<Values>
 						<Value>
-							<Name>Off</Name>
+							<Name>关闭</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>Date</Name>
+							<Name>日期</Name>
 							<ID>0x01</ID>
 						</Value>
 						<Value>
-							<Name>Date/Time</Name>
+							<Name>时间和日期</Name>
 							<ID>0x02</ID>
 						</Value>
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>White Balance</Name>
+					<Name>白平衡</Name>
 					<ID>0x00000108</ID>
 					<Type>0x00</Type>
 					<Default>0x00</Default>					
 					<Values>
 						<Value>
-							<Name>Auto</Name>
+							<Name>自动</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>Daylight</Name>
+							<Name>日光</Name>
 							<ID>0x01</ID>
 						</Value>
 						<Value>
-							<Name>Cloudy</Name>
+							<Name>多云</Name>
 							<ID>0x02</ID>
 						</Value>
 						<Value>
-							<Name>Tungsten</Name>
+							<Name>钨灯</Name>
 							<ID>0x03</ID>
 						</Value>
 						<Value>
-							<Name>Flourescent</Name>
+							<Name>荧光灯</Name>
 							<ID>0x04</ID>
 						</Value>
 					</Values>
@@ -436,10 +436,10 @@
 			</Settings>
 		</Category>
 		<Category>
-			<Name>System</Name>
+			<Name>系统</Name>
 			<Settings>
 				<Setting>
-					<Name>Frequency</Name>
+					<Name>频率</Name>
 					<ID>0x00000200</ID>
 					<Type>0x00</Type>
 					<Default>0x00</Default>					
@@ -455,79 +455,79 @@
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Screen Saver</Name>
+					<Name>屏保时间</Name>
 					<ID>0x00000201</ID>
 					<Type>0x00</Type>
 					<Default>0x00</Default>					
 					<Values>
 						<Value>
-							<Name>Off</Name>
+							<Name>关闭</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>3 Minutes</Name>
+							<Name>3 分钟</Name>
 							<ID>0x01</ID>
 						</Value>
 						<Value>
-							<Name>5 Minutes</Name>
+							<Name>5 分钟</Name>
 							<ID>0x02</ID>
 						</Value>
 						<Value>
-							<Name>10 Minutes</Name>
+							<Name>10 分钟</Name>
 							<ID>0x03</ID>
 						</Value>
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Auto Power Off</Name>
+					<Name>自动关机</Name>
 					<ID>0x00000202</ID>
 					<Type>0x00</Type>
 					<Default>0x00</Default>					
 					<Values>
 						<Value>
-							<Name>Off</Name>
+							<Name>关闭</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>1 Minute</Name>
+							<Name>1 分钟</Name>
 							<ID>0x01</ID>
 						</Value>
 						<Value>
-							<Name>3 Minutes</Name>
+							<Name>3 分钟</Name>
 							<ID>0x02</ID>
 						</Value>
 					</Values>
 				</Setting>
 				<Setting>
-					<Name>Language</Name>
+					<Name>语言</Name>
 					<ID>0x00000203</ID>
 					<Type>0x00</Type>
 					<Default>0x01</Default>
 					<Values>
 						<Value>
-							<Name>English</Name>
+							<Name>英语</Name>
 							<ID>0x00</ID>
 						</Value>
 					</Values>				
 				</Setting>
 				<Setting>
-					<Name>Beep Sound</Name>
+					<Name>提示音</Name>
 					<ID>0x00000204</ID>
 					<Type>0x00</Type>
 					<Default>0x01</Default>
 					<Values>
 						<Value>
-							<Name>Off</Name>
+							<Name>关闭</Name>
 							<ID>0x00</ID>
 						</Value>
 						<Value>
-							<Name>On</Name>
+							<Name>开启</Name>
 							<ID>0x01</ID>
 						</Value>
 					</Values>				
 				</Setting>
 				<Setting>
-					<Name>Date/Time</Name>
+					<Name>时间和日期</Name>
 					<ID>0x00000205</ID>
 					<Type>0x00</Type>
 					<Default>0x00</Default>
@@ -547,26 +547,26 @@
 					</Values>				
 				</Setting>
 				<Setting>
-					<Name>Clear Buffer</Name>
+					<Name>清除缓冲区</Name>
 					<ID>0x00000206</ID>
 					<Type>0x04</Type>
 					<Default>0x00</Default>
 				</Setting>
 				<Setting>
-					<Name>Format</Name>
+					<Name>格式化</Name>
 					<ID>0x00000207</ID>
 					<Type>0x01</Type>
 					<Default>0x00</Default>
 				</Setting>
 				<Setting>
-					<Name>Default Setting</Name>
+					<Name>默认设置</Name>
 					<ID>0x00000208</ID>
 					<Type>0x01</Type>
                     <Reflash>0x01</Reflash>
 					<Default>0x00</Default>
 				</Setting>
 				<Setting>
-					<Name>Version</Name>
+					<Name>版本号</Name>
 					<ID>0x00000209</ID>
 					<Type>0x03</Type>
 					<Default>0x00</Default>
@@ -583,13 +583,13 @@
 			<Name>Wifi</Name>
 			<Settings>
 				<Setting>
-					<Name>WifiName</Name>
+					<Name>Wifi名字</Name>
 					<ID>0x00000300</ID>
 					<Type>0x02</Type>
 					<Default>SJ4000</Default>					
 				</Setting>
 				<Setting>
-					<Name>Password</Name>
+					<Name>密码</Name>
 					<ID>0x00000301</ID>
 					<Type>0x02</Type>
 				</Setting>
