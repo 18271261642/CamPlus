@@ -37,6 +37,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.hjq.permissions.OnPermissionCallback;
 import com.hjq.permissions.XXPermissions;
+import com.startlink.camplus.BaseActivity;
 import com.startlink.camplus.R;
 
 import java.io.BufferedReader;
@@ -56,7 +57,7 @@ import generalplus.com.GPCamLib.CamWrapper;
 import generalplus.com.GPCamLib.GPINIReader;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static String TAG = "MainActivity";
     private CamWrapper m_CamWrapper;
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getIntent().getBooleanExtra("EXIT", false)) {
+           // exitApp();
             finish();
         }
 
@@ -378,7 +380,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            // TODO Auto-generated method stub
             if (bCheckConnectStatus) {
                 try {
                     Thread.sleep(1000);
@@ -513,6 +514,11 @@ public class MainActivity extends AppCompatActivity {
         }
         recordLogCatHandler.removeCallbacks(runnableRecordLogCat);
         super.onDestroy();
+
+        if(m_connectGPWifiDeviceThread != null){
+            m_connectGPWifiDeviceThread.interrupt();
+            m_connectGPWifiDeviceThread = null;
+        }
     }
 
     private boolean bWriteLogCatFile = false;
@@ -659,4 +665,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
+
+
 }

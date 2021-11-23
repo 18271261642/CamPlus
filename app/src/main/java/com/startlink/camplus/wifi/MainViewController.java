@@ -27,10 +27,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.generalplus.ffmpegLib.ffmpegWrapper;
+import com.startlink.camplus.BaseActivity;
 import com.startlink.camplus.R;
+import com.startlink.camplus.ShowMsgDialogView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,7 +48,7 @@ import generalplus.com.GPCamLib.GPXMLParse;
 /**
  * 在线视频播放页面
  */
-public class MainViewController extends AppCompatActivity implements SurfaceHolder.Callback {
+public class MainViewController extends BaseActivity implements SurfaceHolder.Callback {
 
     private static String TAG = "MainViewController";
     private int FW_Old_Number = 0x01000000;   // V1.0.0.0
@@ -117,8 +121,18 @@ public class MainViewController extends AppCompatActivity implements SurfaceHold
     private boolean m_bVendorID = true;
 
 
+    private ShowMsgDialogView showMsgDialogView;
 
 
+    private final Handler handler = new Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            handler.removeMessages(msg.what);
+            String txt = (String) msg.obj;
+            showDialogTxt(txt,msg.what);
+        }
+    };
 
     static private class BatteryRes {
         int BatteryIndex;
@@ -176,7 +190,13 @@ public class MainViewController extends AppCompatActivity implements SurfaceHold
             AssetManager assetManager = getAssets();
             InputStream fIn = null;
             try {
-                fIn = assetManager.open("Default_Menu.xml");
+
+                boolean isChinese = BasePreferences.getValue(Constance.LANGUAGE_KEY,true);
+                if(isChinese){
+                    fIn = assetManager.open("Default_Menu.xml");
+                }else{
+                    fIn = assetManager.open("Default_Menu_en.xml");
+                }
 
                 OutputStream os = new FileOutputStream(file);
                 byte[] buffer = new byte[1024];
@@ -420,7 +440,7 @@ public class MainViewController extends AppCompatActivity implements SurfaceHold
                 stopStreaming();
                 Intent intent = new Intent();
                 intent.setClass(MainViewController.this, SettingActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,0x01);
             }
 
         });
@@ -979,12 +999,20 @@ public class MainViewController extends AppCompatActivity implements SurfaceHold
             switch (i32ErrorCode) {
                 case CamWrapper.Error_ServerIsBusy:
                     Log.e(TAG, "Error_ServerIsBusy ... ");
+                    Message message6 = handler.obtainMessage();
+                    message6.what = 0x00;
+                    message6.obj = "设备正忙,请重试!";
+                    handler.sendMessage(message6);
                     break;
                 case CamWrapper.Error_InvalidCommand:
                     Log.e(TAG, "Error_InvalidCommand ... ");
                     break;
                 case CamWrapper.Error_RequestTimeOut:
                     Log.e(TAG, "Error_RequestTimeOut ... ");
+                    Message message = handler.obtainMessage();
+                    message.what = 0x00;
+                    message.obj = "连接超时，请重试!";
+                    handler.sendMessage(message);
                     break;
                 case CamWrapper.Error_ModeError:
                     Log.e(TAG, "Error_ModeError ... ");
@@ -999,26 +1027,44 @@ public class MainViewController extends AppCompatActivity implements SurfaceHold
                             }
                         });
                     }
+
+                    Message message2 = handler.obtainMessage();
+                    message2.what = 0x01;
+                    message2.obj = "无存储卡，请插入存储卡!";
+                    handler.sendMessage(message2);
                     break;
                 case CamWrapper.Error_WriteFail:
                     Log.e(TAG, "Error_WriteFail ... ");
+                    Message message3 = handler.obtainMessage();
+                    message3.what = 0x02;
+                    message3.obj = "Wifi异常，请稍后再试!";
+                    handler.sendMessage(message3);
                     break;
                 case CamWrapper.Error_GetFileListFail:
                     Log.e(TAG, "Error_GetFileListFail ... ");
+
                     break;
                 case CamWrapper.Error_GetThumbnailFail:
                     Log.e(TAG, "Error_GetThumbnailFail ... ");
                     break;
                 case CamWrapper.Error_FullStorage:
                     Log.e(TAG, "Error_FullStorage ... ");
+                    Message message4 = handler.obtainMessage();
+                    message4.what = 0x03;
+                    message4.obj = "存储卡已满!";
+                    handler.sendMessage(message4);
                     break;
                 case CamWrapper.Error_SocketClosed:
                     Log.e(TAG, "Error_SocketClosed ... ");
-                    Finish();
-                    break;
+//                    Finish();
+//                    break;
                 case CamWrapper.Error_LostConnection:
+                    Message message5 = handler.obtainMessage();
+                    message5.what = 0x04;
+                    message5.obj = "连接已断开，请重新连接!";
+                    handler.sendMessage(message5);
                     Log.e(TAG, "Error_LostConnection ...");
-                    Finish();
+                  //  Finish();
                     break;
             }
             dismissProgressDialog();
@@ -1302,6 +1348,41 @@ public class MainViewController extends AppCompatActivity implements SurfaceHold
                 m_Dialog.dismiss();
                 m_Dialog = null;
             }
+        }
+    }
+
+
+
+
+    private void showDialogTxt(String txt,int code){
+        if(showMsgDialogView == null)
+            showMsgDialogView = new ShowMsgDialogView(this);
+        showMsgDialogView.show();
+        showMsgDialogView.setContentTvTxt(txt);
+        showMsgDialogView.setOnDialogListener(new ShowMsgDialogView.OnDialogListener() {
+            @Override
+            public void onDismissView() {
+                showMsgDialogView.dismiss();
+                if(code == 4){
+                    Finish();
+                }
+            }
+
+            @Override
+            public void onCancelView() {
+                showMsgDialogView.dismiss();
+            }
+        });
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e(TAG,"------requestCode="+requestCode+" resultCode="+resultCode);
+        if(requestCode == 0x01 && resultCode == 0x01){
+            exitApp();
         }
     }
 }

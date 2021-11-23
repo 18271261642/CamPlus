@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,8 +36,13 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.startlink.camplus.R;
+import com.startlink.camplus.ShowMsgDialogView;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -68,6 +74,7 @@ public class SettingActivity extends PreferenceActivity {
     private boolean m_bGoFWUpgrade = false;
     private String m_strFilePath = "";
 
+    private ShowMsgDialogView showMsgDialogView;
 
     private final Handler handler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -83,6 +90,10 @@ public class SettingActivity extends PreferenceActivity {
                 clearApplicationData();
                 if (m_xmlGategory != null && m_xmlGategory.size() > 0)
                     UpdateSettingListView();
+            }
+
+            if(msg.what == 0x02){
+                FinishToMainController();
             }
         }
     };
@@ -111,10 +122,39 @@ public class SettingActivity extends PreferenceActivity {
         m_strFilePath = String.format(getExternalFilesDir(null) + "/" + CamWrapper.CamDefaulFolderName + "/" + CamWrapper.ParameterFileName);
 
 
-        String tmpPath = getExternalFilesDir(null).getPath();
+        if (CamWrapper.bIsDefault) {
+            setTitle(getString(R.string.app_name) + "*");
+//			m_strFilePath = String.format(Environment
+//					.getExternalStorageDirectory().getPath() + "/Download/" + CamWrapper.CamDefaulFolderName + "/" + CamWrapper.DefaultParameterFileName);
 
-        Log.e(TAG, "---11-m_strFilePath=" + m_strFilePath + " " + tmpPath);
+            m_strFilePath = String.format(getExternalFilesDir(null).getPath() + "/" + CamWrapper.CamDefaulFolderName + "/" + CamWrapper.DefaultParameterFileName);
 
+            Log.e(TAG, "--22--m_strFilePath=" + m_strFilePath);
+        }
+        if (ParseXMLThread == null) {
+            if (m_Dialog == null) {
+                m_Dialog = new ProgressDialog(this);
+
+            }
+            m_Dialog.show();
+            m_Dialog.setMessage(getResources().getString(R.string.Getting_menu));
+            m_Dialog.setCanceledOnTouchOutside(false);
+            m_Dialog.setCancelable(false);
+            Log.e(TAG, "------dialog-------");
+
+
+            m_dismissHandler = new Handler();
+            handler.sendEmptyMessageDelayed(0x00, 10 * 1000);
+
+            ParseXMLThread = new Thread(new ParseXMLRunnable(m_strFilePath));
+            ParseXMLThread.start();
+
+
+        }
+    }
+
+
+    private void trainAgain(){
 
         if (CamWrapper.bIsDefault) {
             setTitle(getString(R.string.app_name) + "*");
@@ -139,24 +179,6 @@ public class SettingActivity extends PreferenceActivity {
 
             m_dismissHandler = new Handler();
             handler.sendEmptyMessageDelayed(0x00, 10 * 1000);
-            //            m_dismissHandler.postDelayed(new Runnable() {
-            //
-            //                @Override
-            //                public void run() {
-            //                    if (m_bDismiss) {
-            //                        return;
-            //                    }
-            //                    runOnUiThread(new Runnable() {
-            //                        public void run() {
-            //                            if (m_Dialog != null) {
-            //                                if (m_Dialog.isShowing()) {
-            //                                    m_Dialog.setCancelable(true);
-            //                                }
-            //                            }
-            //                        }
-            //                    });
-            //                }
-            //            }, 10000);
 
             ParseXMLThread = new Thread(new ParseXMLRunnable(m_strFilePath));
             ParseXMLThread.start();
@@ -164,6 +186,7 @@ public class SettingActivity extends PreferenceActivity {
 
         }
     }
+
 
 
     public static ArrayList<GPXMLParse.GPXMLCategory> getXMLCategory() {
@@ -881,20 +904,65 @@ public class SettingActivity extends PreferenceActivity {
     private void FinishToMainController() {
         Log.e(TAG, "Finish ...");
         CamWrapper.getComWrapperInstance().GPCamDisconnect();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
+        Intent intent = new Intent(this, MainViewController.class);
+        setResult(0x01,intent);
+//        intent.putExtra("EXIT", true);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        //startActivity(intent);
+        finish();
     }
 
     private int SendSetParameter(int ID, int Size, byte[] Data) {
         Log.e(TAG, "-------GPCamSendSetParameter ... =" + ID + " size=" + Size + " Data=" + Arrays.toString(Data));
+
         if (m_Dialog == null) {
             m_Dialog = new ProgressDialog(this);
             m_Dialog.setMessage(getResources().getString(R.string.Setting));
             m_Dialog.setCanceledOnTouchOutside(false);
         }
         m_Dialog.show();
-        return CamWrapper.getComWrapperInstance().GPCamSendSetParameter(ID, Size, Data);
+        int setValue = CamWrapper.getComWrapperInstance().GPCamSendSetParameter(ID, Size, Data);
+        Log.e(TAG,"------setValue="+setValue);
+        if(ID == 515 && Size == 1 && Data[0] == 0){ //设置为中文
+            setLanguageView(true);
+        }
+
+        if(ID == 515 && Size == 1 && Data[0] == 1){ //设置为英文
+            setLanguageView(false);
+        }
+        return setValue;
     }
+
+
+    private void setLanguageView(boolean isChinese){
+        if(showMsgDialogView == null){
+            showMsgDialogView = new ShowMsgDialogView(this);
+        }
+        showMsgDialogView.show();
+        showMsgDialogView.setContentTvTxt("设置语言后APP会重新启动，是否继续?");
+        showMsgDialogView.setShowCancelBtn(true);
+        showMsgDialogView.setOnDialogListener(new ShowMsgDialogView.OnDialogListener() {
+            @Override
+            public void onDismissView() {
+                showMsgDialogView.dismiss();
+                BasePreferences.setValue(Constance.LANGUAGE_KEY,isChinese);
+              //  m_strFilePath = String.format(getExternalFilesDir(null).getPath() + "/" + CamWrapper.CamDefaulFolderName + "/" + CamWrapper.DefaultParameterFileName);
+                if(m_strFilePath != null){
+                    File menuFile = new File(m_strFilePath);
+                    menuFile.delete();
+                }
+                CamWrapper.getComWrapperInstance().GPCamDisconnect();
+              //  copyDefaultXml(isChinese);
+              handler.sendEmptyMessageDelayed(0x02,1000);
+
+            }
+
+            @Override
+            public void onCancelView() {
+                showMsgDialogView.dismiss();
+            }
+        });
+    }
+
 }

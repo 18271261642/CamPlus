@@ -32,6 +32,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import com.startlink.camplus.BaseActivity;
 import com.startlink.camplus.R;
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,7 +49,7 @@ import generalplus.com.GPCamLib.CamWrapper;
 /**
  * 文件列表
  */
-public class FilesActivity extends Activity {
+public class FilesActivity extends BaseActivity {
 
 
     private static final String TAG = "FilesActivity";

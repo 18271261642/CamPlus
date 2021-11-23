@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.hjq.permissions.OnPermissionCallback;
 import com.hjq.permissions.XXPermissions;
+import com.startlink.camplus.BaseActivity;
 import com.startlink.camplus.R;
 
 import java.io.File;
@@ -27,7 +28,7 @@ import java.util.List;
  * Created by Admin
  * Date 2021/9/28
  */
-public class LocalPictureActivity extends AppCompatActivity {
+public class LocalPictureActivity extends BaseActivity {
 
     private static final String TAG = "LocalPictureActivity";
 

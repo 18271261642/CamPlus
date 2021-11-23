@@ -21,8 +21,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.generalplus.ffmpegLib.ffmpegWrapper;
+import com.startlink.camplus.BaseActivity;
 import com.startlink.camplus.R;
+import com.startlink.camplus.ShowMsgDialogView;
 
 import java.util.Arrays;
 import generalplus.com.GPCamLib.CamWrapper;
@@ -30,7 +34,7 @@ import generalplus.com.GPCamLib.CamWrapper;
 /**
  * 播放视频页面
  */
-public class FileViewController extends Activity implements SurfaceHolder.Callback {
+public class FileViewController extends BaseActivity implements SurfaceHolder.Callback {
 
     private static String TAG = "FileViewController";
 
@@ -69,6 +73,21 @@ public class FileViewController extends Activity implements SurfaceHolder.Callba
     private static boolean _bIsPause = false;
     private long mLastClickTime;
     private Context mContext;
+
+
+    private ShowMsgDialogView showMsgDialogView;
+
+
+
+    private final Handler handler = new Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            handler.removeMessages(msg.what);
+            String txt = (String) msg.obj;
+            showDialogTxt(txt,msg.what);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -471,21 +490,37 @@ public class FileViewController extends Activity implements SurfaceHolder.Callba
             switch (i32ErrorCode) {
                 case CamWrapper.Error_ServerIsBusy:
                     Log.e(TAG, "Error_ServerIsBusy ... ");
+                    Message message6 = handler.obtainMessage();
+                    message6.what = 0x00;
+                    message6.obj = "设备正忙,请重试!";
+                    handler.sendMessage(message6);
                     break;
                 case CamWrapper.Error_InvalidCommand:
                     Log.e(TAG, "Error_InvalidCommand ... ");
                     break;
                 case CamWrapper.Error_RequestTimeOut:
                     Log.e(TAG, "Error_RequestTimeOut ... ");
+                    Message message = handler.obtainMessage();
+                    message.what = 0x00;
+                    message.obj = "连接超时，请重试!";
+                    handler.sendMessage(message);
                     break;
                 case CamWrapper.Error_ModeError:
                     Log.e(TAG, "Error_ModeError ... ");
                     break;
                 case CamWrapper.Error_NoStorage:
                     Log.e(TAG, "Error_NoStorage ... ");
+                    Message message2 = handler.obtainMessage();
+                    message2.what = 0x01;
+                    message2.obj = "无存储卡，请插入存储卡!";
+                    handler.sendMessage(message2);
                     break;
                 case CamWrapper.Error_WriteFail:
                     Log.e(TAG, "Error_WriteFail ... ");
+                    Message message3 = handler.obtainMessage();
+                    message3.what = 0x02;
+                    message3.obj = "Wifi异常，请稍后再试!";
+                    handler.sendMessage(message3);
                     break;
                 case CamWrapper.Error_GetFileListFail:
                     Log.e(TAG, "Error_GetFileListFail ... ");
@@ -495,14 +530,22 @@ public class FileViewController extends Activity implements SurfaceHolder.Callba
                     break;
                 case CamWrapper.Error_FullStorage:
                     Log.e(TAG, "Error_FullStorage ... ");
+                    Message message4 = handler.obtainMessage();
+                    message4.what = 0x03;
+                    message4.obj = "存储卡已满!";
+                    handler.sendMessage(message4);
                     break;
                 case CamWrapper.Error_SocketClosed:
                     Log.e(TAG, "Error_SocketClosed ... ");
-                    FinishToMainController();
-                    break;
+//                    FinishToMainController();
+//                    break;
                 case CamWrapper.Error_LostConnection:
                     Log.e(TAG, "Error_LostConnection ...");
-                    FinishToMainController();
+                    Message message5 = handler.obtainMessage();
+                    message5.what = 0x04;
+                    message5.obj = "连接已断开，请重新连接!";
+                    handler.sendMessage(message5);
+//                    FinishToMainController();
                     break;
             }
         }
@@ -516,5 +559,29 @@ public class FileViewController extends Activity implements SurfaceHolder.Callba
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+    }
+
+
+    private void showDialogTxt(String txt,int code){
+        if(showMsgDialogView == null)
+            showMsgDialogView = new ShowMsgDialogView(this);
+        showMsgDialogView.show();
+        showMsgDialogView.setContentTvTxt(txt);
+        showMsgDialogView.setOnDialogListener(new ShowMsgDialogView.OnDialogListener() {
+            @Override
+            public void onDismissView() {
+                showMsgDialogView.dismiss();
+                if(code == 4){
+                    FinishToMainController();
+                }
+            }
+
+            @Override
+            public void onCancelView() {
+                showMsgDialogView.dismiss();
+            }
+        });
+
+
     }
 }

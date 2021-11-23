@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.startlink.camplus.BaseActivity;
 import com.startlink.camplus.R;
 
 import java.io.DataInputStream;
@@ -28,7 +29,7 @@ import java.util.Arrays;
 import generalplus.com.GPCamLib.CamWrapper;
 
 
-public class FWUpgradeActivity extends Activity {
+public class FWUpgradeActivity extends BaseActivity {
 
 
     private static String TAG = "FWUpgradeActivity";
