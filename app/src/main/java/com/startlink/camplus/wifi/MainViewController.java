@@ -1,6 +1,6 @@
 package com.startlink.camplus.wifi;
 
-import android.app.Activity;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -26,16 +26,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.generalplus.ffmpegLib.ffmpegWrapper;
 import com.startlink.camplus.BaseActivity;
 import com.startlink.camplus.R;
 import com.startlink.camplus.ShowMsgDialogView;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

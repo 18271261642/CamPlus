@@ -23,6 +23,7 @@ import java.io.File;
 
 
 /**
+ * 本地视频播放页面
  * Created by Admin
  * Date 2021/9/27
  */
@@ -52,8 +53,6 @@ public class LocalWifiPlayerActivity extends GSYBaseActivityDetail<StandardGSYVi
         if(bundle == null)
             return;
         videoUrl = bundle.getString("local_video");//
-//        String tmpPaht2 = Environment.getExternalStorageDirectory().getAbsolutePath()+"/DCIM/Camera/MOVI0015.avi";
-//        this.videoUrl = tmpPaht2;
         Log.e(TAG,"---videoUrl="+videoUrl);
         if(videoUrl == null){
             Toast.makeText(this,"视频为空!",Toast.LENGTH_SHORT).show();
@@ -153,7 +152,6 @@ public class LocalWifiPlayerActivity extends GSYBaseActivityDetail<StandardGSYVi
     private final GSYStateUiListener gsyStateUiListener = new GSYStateUiListener() {
         @Override
         public void onStateChanged(int state) {  //5暂停，2播放
-            Log.e(TAG,"-----state="+state);
         }
     };
 }

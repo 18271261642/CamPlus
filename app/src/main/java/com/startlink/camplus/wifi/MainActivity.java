@@ -3,7 +3,6 @@ package com.startlink.camplus.wifi;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -25,21 +24,15 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AutoCompleteTextView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.app.ActivityCompat;
-
 import com.hjq.permissions.OnPermissionCallback;
 import com.hjq.permissions.XXPermissions;
 import com.startlink.camplus.BaseActivity;
 import com.startlink.camplus.R;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -56,7 +49,9 @@ import java.util.concurrent.TimeoutException;
 import generalplus.com.GPCamLib.CamWrapper;
 import generalplus.com.GPCamLib.GPINIReader;
 
-
+/**
+ * 连接wifi页面
+ */
 public class MainActivity extends BaseActivity {
 
     private static String TAG = "MainActivity";
