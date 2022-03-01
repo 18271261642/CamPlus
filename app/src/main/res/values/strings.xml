@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">CamPlus</string>
+    <string name="app_name">CamPro</string>
+
+    <string name="string_privacy_str">感谢您使用 奔啦啦 ！为保障您的权利，在使用我们的服务前，请通过《奔啦啦用户服务协议》和《奔啦啦隐私政策》了解我们对个人信息的使用情况与您所享有的相关权利。</string>
+
+    <string name="user_agreement_tips">《服务协议》</string>//用户协议
+
+    <string name="privacy_agreement_tips">《隐私政策》</string>//用户协议
 </resources>

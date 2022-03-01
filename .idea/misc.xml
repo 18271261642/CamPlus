@@ -8,13 +8,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/drawable/item_comm_main_layout.xml" value="0.1953125" />
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/drawable/item_comm_main_normal_shap.xml" value="0.18518518518518517" />
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/drawable/item_comm_main_press_shap.xml" value="0.1953125" />
         <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_files.xml" value="0.17916666666666667" />
         <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_fwgrade.xml" value="0.17916666666666667" />
         <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_local_wifi_picture_layout.xml" value="0.17916666666666667" />
         <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_main.xml" value="0.17916666666666667" />
         <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_main_vlc_player.xml" value="0.17916666666666667" />
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_menu_set_layout.xml" value="0.14666666666666667" />
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_show_web_layout.xml" value="0.1" />
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/activity_wifi_main.xml" value="0.17916666666666667" />
         <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/item_title_layout.xml" value="0.17916666666666667" />
         <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/show_msg_dialog_layout.xml" value="0.12" />
+        <entry key="..\:/StudioWork/CamPlus/app/src/main/res/layout/show_privacy_dialog_view.xml" value="0.16666666666666666" />
         <entry key="..\:/StudioWork/CamPlus/app/src/main/res/menu/upgrade.xml" value="0.17916666666666667" />
         <entry key="..\:/WorkPlace/CamPlus/app/src/main/res/drawable/ic_comm_back_img.xml" value="0.234765625" />
         <entry key="..\:/WorkPlace/CamPlus/app/src/main/res/layout/activity_local_wifi_picture_layout.xml" value="0.25" />

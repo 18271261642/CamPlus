@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textColor="#2F2F33"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:textSize="23sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="用户协议"/>
+
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textSize="17sp"
+           android:padding="8dp"
+           android:layout_margin="10dp"
+           android:lineSpacingExtra="5dp"
+           android:text="@string/string_privacy_str"/>
+
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:gravity="center"
+           android:orientation="vertical">
+
+
+           <TextView
+               android:id="@+id/userAgreementTv"
+               android:layout_width="wrap_content"
+               android:textSize="18sp"
+               android:padding="5dp"
+               android:textColor="#00AAEE"
+               android:layout_height="wrap_content"
+               android:text="@string/user_agreement_tips"/>
+
+           <TextView
+               android:id="@+id/privacyTv"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="18sp"
+               android:padding="5dp"
+               android:textColor="#00AAEE"
+               android:text="@string/privacy_agreement_tips"/>
+
+
+       </LinearLayout>
+
+
+   </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+
+        <Button
+            android:id="@+id/privacyCancelBtn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:background="@drawable/item_comm_main_layout"
+            android:layout_height="wrap_content"
+            android:text="取消"/>
+
+
+        <Button
+            android:id="@+id/privacyConfirmBtn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_comm_main_layout"
+            android:text="同意"/>
+
+
+    </LinearLayout>
+</LinearLayout>

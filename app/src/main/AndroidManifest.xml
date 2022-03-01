@@ -4,8 +4,8 @@
     package="com.startlink.camplus">
 
 
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
@@ -41,7 +41,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".MenuSetActivity"/>
+        <activity android:name=".ShowWebActivity"/>
         <!--摄像头文件列表页面-->
         <activity android:name="com.startlink.camplus.wifi.FilesActivity"
             android:screenOrientation="portrait"/>

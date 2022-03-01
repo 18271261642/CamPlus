@@ -26,6 +26,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,7 +41,10 @@ import androidx.core.app.ActivityCompat;
 import com.hjq.permissions.OnPermissionCallback;
 import com.hjq.permissions.XXPermissions;
 import com.startlink.camplus.BaseActivity;
+import com.startlink.camplus.MenuSetActivity;
 import com.startlink.camplus.R;
+import com.startlink.camplus.SharedPreferencesUtils;
+import com.startlink.camplus.ShowWebActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -71,6 +77,13 @@ public class MainActivity extends BaseActivity {
 
     private ImageView wifiTitleBackImg;
 
+    private ImageView menuRightImg;
+
+    //判断是否已经勾选了
+    private CheckBox mainCheckBox;
+
+    private AlertDialog.Builder alert;
+
     @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +103,8 @@ public class MainActivity extends BaseActivity {
         mContext = MainActivity.this;
 
         initViews();
+
+        initData();
 
         if (m_CamWrapper == null) {
             m_CamWrapper = new CamWrapper();
@@ -166,14 +181,38 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    private void initViews(){
-        wifiTitleBackImg = findViewById(R.id.wifiTitleBackImg);
-        wifiTitleBackImg.setVisibility(View.INVISIBLE);
-        imgbtn_connect = findViewById(R.id.imgbtn_connect);
 
-        AppCompatTextView titleTv = findViewById(R.id.commTitleTv);
-        titleTv.setText("连接设备");
 
+
+    private void showAlert(){
+        alert = new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("连接设备需要需要打开存储权限,是否允许?")
+                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        openPermission();
+                    }
+                }).setNegativeButton("否", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+
+                    }
+                });
+
+        AlertDialog at = alert.show();
+        Button yesBtn = at.getButton(DialogInterface.BUTTON_POSITIVE);
+        Button noBtn = at.getButton(DialogInterface.BUTTON_NEGATIVE);
+        yesBtn.setTextColor(ActivityCompat.getColor(MainActivity.this,R.color.black));
+        noBtn.setTextColor(ActivityCompat.getColor(MainActivity.this,R.color.black));
+
+
+    }
+
+
+    private void openPermission(){
         requestPermiss();
         if (shouldAskPermission()) {
             int writePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -191,13 +230,35 @@ public class MainActivity extends BaseActivity {
         } else {
             crateDirectory();
         }
+    }
+
+
+    private void initData() {
+        boolean isChecked = (boolean) SharedPreferencesUtils.getParam(this,"is_check",false);
+        mainCheckBox.setChecked(isChecked);
+        boolean isPermiss = ActivityCompat.checkSelfPermission(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+
+
+        //判断权限是否已经打开
+        if(!isPermiss){
+            showAlert();
+        }
 
 
         imgbtn_connect.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this,SettingActivity.class));
+                if(!mainCheckBox.isChecked()){
+                    Toast.makeText(MainActivity.this,"请同意隐私政策和用户协议！",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //判断权限是否已经打开
+                if(!isPermiss){
+                    showAlert();
+                    return;
+                }
+
                 if (m_connectGPWifiDeviceThread == null) {
                     if (m_Dialog == null) {
                         m_Dialog = new ProgressDialog(mContext);
@@ -212,6 +273,57 @@ public class MainActivity extends BaseActivity {
             }
 
         });
+    }
+
+
+    private void initViews(){
+        mainCheckBox = findViewById(R.id.mainCheckBox);
+        menuRightImg = findViewById(R.id.menuRightImg);
+        menuRightImg.setVisibility(View.VISIBLE);
+        wifiTitleBackImg = findViewById(R.id.wifiTitleBackImg);
+        wifiTitleBackImg.setVisibility(View.INVISIBLE);
+        imgbtn_connect = findViewById(R.id.imgbtn_connect);
+
+        AppCompatTextView titleTv = findViewById(R.id.commTitleTv);
+        titleTv.setText("连接设备");
+
+
+        findViewById(R.id.mainPrivacyTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startAgreementActivity(0,"隐私政策");
+            }
+        });
+
+        findViewById(R.id.mainUserAgreeTv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startAgreementActivity(0,"用户协议");
+            }
+        });
+
+
+        mainCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                mainCheckBox.setChecked(b);
+                SharedPreferencesUtils.setParam(MainActivity.this,"is_check",b);
+            }
+        });
+
+
+
+
+
+
+        menuRightImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, MenuSetActivity.class));
+            }
+        });
+
+
     }
 
 
@@ -666,6 +778,13 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+
+    public void startAgreementActivity(int type,String title) {
+        Intent intent = new Intent(this, ShowWebActivity.class);
+        intent.putExtra("type",type);
+        intent.putExtra("title", title);
+        startActivity(intent);
+    }
 
 
 }
