@@ -1,6 +1,6 @@
 package com.startlink.camplus.wifi;
 
-import android.app.Activity;
+
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
@@ -28,10 +28,8 @@ import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
-
 import com.startlink.camplus.BaseActivity;
 import com.startlink.camplus.R;
 import java.io.File;

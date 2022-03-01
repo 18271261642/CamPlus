@@ -52,8 +52,9 @@
         <!--demo中在线视频播放页面-->
         <activity android:name="com.startlink.camplus.wifi.FileViewController"
             android:screenOrientation="portrait"/>
-
+        <!--本地图片展示页面-->
         <activity android:name=".wifi.LocalPictureActivity"/>
+        <!--本地视频播放页面-->
         <activity android:name=".wifi.LocalWifiPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait"/>

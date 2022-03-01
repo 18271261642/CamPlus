@@ -7,6 +7,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+/**
+ * 启动页面
+ */
 public class MainActivity extends BaseActivity {
 
     private  ShowPrivacyDialogView showPrivacyView;
