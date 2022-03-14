@@ -32,6 +32,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.app.ActivityCompat;
 import com.hjq.permissions.OnPermissionCallback;
@@ -211,6 +213,15 @@ public class MainActivity extends BaseActivity {
 
 
     private void openPermission(){
+
+        XXPermissions.with(this).permission(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE).request(new OnPermissionCallback() {
+            @Override
+            public void onGranted(List<String> permissions, boolean all) {
+                crateDirectory();
+            }
+        });
+
+
         requestPermiss();
         if (shouldAskPermission()) {
             int writePermission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -234,14 +245,14 @@ public class MainActivity extends BaseActivity {
     private void initData() {
         boolean isChecked = (boolean) SharedPreferencesUtils.getParam(this,"is_check",false);
         mainCheckBox.setChecked(isChecked);
-        boolean isPermiss = ActivityCompat.checkSelfPermission(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        boolean isPermiss = ActivityCompat.checkSelfPermission(MainActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
 
 
         //判断权限是否已经打开
         if(!isPermiss){
             showAlert();
         }
-
+        crateDirectory();
 
         imgbtn_connect.setOnClickListener(new View.OnClickListener() {
 
@@ -251,8 +262,11 @@ public class MainActivity extends BaseActivity {
                     Toast.makeText(MainActivity.this,"请同意隐私政策和用户协议！",Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                boolean isGetP = ActivityCompat.checkSelfPermission(MainActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+
                 //判断权限是否已经打开
-                if(!isPermiss){
+                if(!isGetP){
                     showAlert();
                     return;
                 }
@@ -311,9 +325,6 @@ public class MainActivity extends BaseActivity {
 
 
 
-
-
-
         menuRightImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -353,9 +364,12 @@ public class MainActivity extends BaseActivity {
 
     private void crateDirectory() {
 
-
+        Log.e(TAG,"--------创建文件=-----");
         //strSaveDirectory = Environment.getExternalStorageDirectory().getPath() + "/" + CamWrapper.CamDefaulFolderName;
         strSaveDirectory = getExternalFilesDir(null).getPath()+"/"+ CamWrapper.CamDefaulFolderName;
+
+        Log.e(TAG,"-----strSaveDirectory="+strSaveDirectory);
+
 
         File SaveFileDirectory = new File(strSaveDirectory);
         SaveFileDirectory.mkdirs();
@@ -599,7 +613,7 @@ public class MainActivity extends BaseActivity {
                         Toast.makeText(mContext, getResources().getString(R.string.Please_connect_message), Toast.LENGTH_SHORT).show();
                         try {
                             Intent intent = new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK);
-                            startActivity(intent);
+                            startActivityForResult(intent,0x00);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -763,6 +777,11 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e(TAG,"-----------requestCode="+requestCode+" "+resultCode);
+    }
 
     private void requestPermiss() {
 

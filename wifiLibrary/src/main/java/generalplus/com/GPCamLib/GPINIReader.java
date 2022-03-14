@@ -29,8 +29,12 @@ public class GPINIReader {
 //				+ "/Download/" + CamWrapper.CamDefaulFolderName + "/"
 //				+ CamWrapper.ConfigFileName;
 
-		configurationFile = "/storage/emulated/0/Android/data/com.truescend.gofit/files/"+ CamWrapper.CamDefaulFolderName + "/"
+//		configurationFile = "/storage/emulated/0/Android/data/com.truescend.gofit/files/"+ CamWrapper.CamDefaulFolderName + "/"
+//				+ CamWrapper.ConfigFileName;
+
+		configurationFile = "/storage/emulated/0/Android/data/com.startlink.camplus/files/"+CamWrapper.CamDefaulFolderName+"/"
 				+ CamWrapper.ConfigFileName;
+
 
 
 		File f = new File(configurationFile);
